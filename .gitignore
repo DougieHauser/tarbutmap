@@ -1,0 +1,6 @@
+node_modules/*
+src/client/public/bundle.js
+*.iml
+.idea
+.DS_Store
+additional_scripts/add_scripts
