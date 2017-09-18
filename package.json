@@ -1,6 +1,9 @@
 {
   "name": "tarbutmap",
   "version": "1.0.0",
+  "engines": {
+    "node": "6.6.0"
+  },
   "description": "Israeli annual culture spending displayed on a map across the years",
   "main": "index.js",
   "scripts": {
