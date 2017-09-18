@@ -15,7 +15,7 @@ class MapSection extends React.Component {
 
     render () {
         console.log('gggg2g');
-        //console.log(process.env);
+        console.log(process.env);
         console.log(process.env.GOOGLE_MAPS_KEY);
 
         return <div id="map-section" className="section-container">
