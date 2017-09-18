@@ -8,6 +8,7 @@ var defaultProps = {
 };
 
 var API_KEY = process.env.GOOGLE_MAPS_KEY;  // will work locally, but will need env_var in heroku
+consoel.log("API_KEY: " + API_KEY);
 var bootstrap = API_KEY ? {key: API_KEY } : {}
 
 class MapSection extends React.Component {
