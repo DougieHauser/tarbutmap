@@ -23,6 +23,9 @@ var config = {
     contentBase: './src/client/public'
   },
 
+  console.log("~~~~~");
+  console.log(process.env.GOOGLE_MAPS_KEY);
+
   plugins: [
     // OccurenceOrderPlugin is needed for webpack 1.x only
     new webpack.optimize.OccurrenceOrderPlugin(),
