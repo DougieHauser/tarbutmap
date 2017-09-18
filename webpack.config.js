@@ -33,6 +33,7 @@ var config = {
         'NODE_ENV': JSON.stringify('production')
       }
     }),
+    new webpack.EnvironmentPlugin(['GOOGLE_MAPS_KEY'])
   ],
 
   module: {
