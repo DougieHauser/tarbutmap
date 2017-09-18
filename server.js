@@ -40,7 +40,7 @@ app.get('/', function response(req, res) {
   res.sendFile(path.join(__dirname, 'src/client/public/index.html'));
 });
 
-app.listen(process.env.PORT || LISTEN_PORT, 'localhost', function (err) {
+app.listen(process.env.PORT || LISTEN_PORT, '0.0.0.0' || 'localhost', function (err) {
   if (err) {
     console.log(err)
   }
