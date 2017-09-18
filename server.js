@@ -47,5 +47,3 @@ app.listen(process.env.PORT || LISTEN_PORT || LISTEN_PORT_2, '0.0.0.0' || 'local
   }
   console.info('==> Listening at http://localhost:%s/ (or %s, or the heroku assigned dynamic port)', LISTEN_PORT, LISTEN_PORT_2)
 })
-
-console.log(process.env.GOOGLE_MAPS_KEY)
