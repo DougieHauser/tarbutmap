@@ -7,6 +7,7 @@ var app = express()
 var compiler = webpack(config)
 
 var LISTEN_PORT = 3000;
+var LISTEN_PORT_2 = 8080;
 
 var middleware = require('webpack-dev-middleware')(compiler, {
   publicPath: config.output.publicPath,
@@ -40,9 +41,11 @@ app.get('/', function response(req, res) {
   res.sendFile(path.join(__dirname, 'src/client/public/index.html'));
 });
 
-app.listen(process.env.PORT || LISTEN_PORT, '0.0.0.0' || 'localhost', function (err) {
+app.listen(process.env.PORT || LISTEN_PORT || LISTEN_PORT_2, '0.0.0.0' || 'localhost', function (err) {
   if (err) {
     console.log(err)
   }
-  console.info('==> Listening at http://localhost:%s/ (or the heroku assigned dynamic port)', LISTEN_PORT)
+  console.info('==> Listening at http://localhost:%s/ (or %s, or the heroku assigned dynamic port)', LISTEN_PORT, LISTEN_PORT_2)
 })
+
+console.log(process.env.GOOGLE_MAPS_KEY)

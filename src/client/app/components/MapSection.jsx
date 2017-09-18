@@ -7,13 +7,6 @@ var defaultProps = {
     zoom: 7
 };
 
-var API_KEY = process.env.GOOGLE_MAPS_KEY;  // will work locally, but will need env_var in heroku
-console.log('process_env is:');
-console.log(process.env.GOOGLE_MAPS_KEY);
-console.log(process.env);
-console.log("API_KEY: " + API_KEY);
-var bootstrap = API_KEY ? {key: API_KEY } : {}
-
 class MapSection extends React.Component {
     constructor(props) {
         super(props);
@@ -21,9 +14,13 @@ class MapSection extends React.Component {
     }
 
     render () {
+        console.log('gggg2g');
+        //console.log(process.env);
+        console.log(process.env.GOOGLE_MAPS_KEY);
+
         return <div id="map-section" className="section-container">
                     <GoogleMapReact
-                            bootstrapURLKeys={bootstrap}
+
                             defaultCenter={defaultProps.center}
                             defaultZoom={defaultProps.zoom}
                             style={{position: 'relative', height: '100%'}}
