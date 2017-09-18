@@ -9,8 +9,8 @@ var defaultProps = {
 
 var API_KEY = process.env.GOOGLE_MAPS_KEY;  // will work locally, but will need env_var in heroku
 console.log('process_env is:');
-console.log(process.bla.GOOGLE_MAPS_KEY);
-console.log(process.bla);
+console.log(process.env.GOOGLE_MAPS_KEY);
+console.log(process.env);
 console.log("API_KEY: " + API_KEY);
 var bootstrap = API_KEY ? {key: API_KEY } : {}
 
