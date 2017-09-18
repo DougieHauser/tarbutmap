@@ -14,13 +14,15 @@ class MapSection extends React.Component {
     }
 
     render () {
+        var API_KEY = process.env.GOOGLE_MAPS_KEY ? {key: process.env.GOOGLE_MAPS_KEY} : {}
+
         console.log('gggg2g');
         console.log(process.env);
         console.log(process.env.GOOGLE_MAPS_KEY);
 
         return <div id="map-section" className="section-container">
                     <GoogleMapReact
-
+                            bootstrapURLKeys = {API_KEY}
                             defaultCenter={defaultProps.center}
                             defaultZoom={defaultProps.zoom}
                             style={{position: 'relative', height: '100%'}}
