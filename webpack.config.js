@@ -29,7 +29,9 @@ var config = {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.DefinePlugin({
-      GOOGLE_MAPS_KEY: process.env.GOOGLE_MAPS_KEY
+      'process.env': {
+        GOOGLE_MAPS_KEY: process.env.GOOGLE_MAPS_KEY
+      }
     })
   ],
 
