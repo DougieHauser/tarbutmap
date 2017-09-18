@@ -27,7 +27,10 @@ var config = {
     // OccurenceOrderPlugin is needed for webpack 1.x only
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoEmitOnErrorsPlugin()
+    new webpack.NoEmitOnErrorsPlugin(),
+    new webpack.DefinePlugin({
+      GOOGLE_MAPS_KEY: process.env.GOOGLE_MAPS_KEY
+    })
   ],
 
   module: {

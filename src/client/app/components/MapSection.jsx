@@ -7,7 +7,7 @@ var defaultProps = {
     zoom: 7
 };
 
-var API_KEY = process.env.GOOGLE_MAPS_KEY;  // will work locally, but will need env_var in heroku
+var API_KEY = GOOGLE_MAPS_KEY;  // will work locally, but will need env_var in heroku
 console.log('process_env is:');
 console.log(process.env.GOOGLE_MAPS_KEY);
 console.log(process.env);
