@@ -40,9 +40,9 @@ app.get('/', function response(req, res) {
   res.sendFile(path.join(__dirname, 'src/client/public/index.html'));
 });
 
-app.listen(LISTEN_PORT, 'localhost', function (err) {
+app.listen(process.env.PORT || LISTEN_PORT, 'localhost', function (err) {
   if (err) {
     console.log(err)
   }
-  console.info('==> Listening at http://localhost:%s/', LISTEN_PORT)
+  console.info('==> Listening at http://localhost:%s/ (or the heroku assigned dynamic port)', LISTEN_PORT)
 })
