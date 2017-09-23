@@ -4,7 +4,7 @@ const AnyReactComponent = ({ text }) => <div style={{border: '5px solid #f44336'
 
 class MapSectionBudgetEntry extends React.Component {
     render () {
-            return <div className='budget-map-entry'></div>
+            return <div className='budget-map-entry' style={{backgroundColor: 'red', width: (10 * (this.props.zoom ^ 3)) + "px", height: (10 * (this.props.zoom ^ 3)) + "px"}}></div>
         }
 }
 

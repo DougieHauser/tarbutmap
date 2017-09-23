@@ -10,15 +10,31 @@ var defaultProps = {
 class MapSection extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {year: this.props.year}
+        this.state = {
+            year: this.props.year,
+            zoom: defaultProps.zoom
+        }
+    }
+
+    onChange(mapObj, b, c) {
+        this.setState({zoom: mapObj.zoom});
+    }
+
+    calculateMaxBudgetEntry() {
+
     }
 
     render () {
-        var API_KEY = process.env.GOOGLE_MAPS_KEY ? {key: process.env.GOOGLE_MAPS_KEY} : {}
+        var sumOfYearlyCityBudgetByYearHasData = this.props.sumOfYearlyCityBudgetByYear != undefined && Object.keys(this.props.sumOfYearlyCityBudgetByYear).length > 0;
 
-        console.log('gggg2g');
-        console.log(process.env);
-        console.log(process.env.GOOGLE_MAPS_KEY);
+        // GOOGLE_MAPS_KEY should be an ENV_VAR!
+        var API_KEY = process.env.GOOGLE_MAPS_KEY ? {key: process.env.GOOGLE_MAPS_KEY} : {}
+        var maxBudgetEntry = this.calculateMaxBudgetEntry.bind(this);
+
+        var keysForMap = [];
+        for(var p in this.props.sumOfYearlyCityBudgetByYear[this.props.year]) {
+            keysForMap.push(p);
+        }
 
         return <div id="map-section" className="section-container">
                     <GoogleMapReact
@@ -26,10 +42,17 @@ class MapSection extends React.Component {
                             defaultCenter={defaultProps.center}
                             defaultZoom={defaultProps.zoom}
                             style={{position: 'relative', height: '100%'}}
+                            onChange={this.onChange.bind(this)}
                           >
 
-                            {/* EXAMPLE! */}
-                            <MapSectionBudgetEntry lat={31.50} lng={35.00}/>
+                          { !sumOfYearlyCityBudgetByYearHasData ? "" : keysForMap.map((key) => {
+                            return <MapSectionBudgetEntry key={key}
+                                                   lat={this.props.sumOfYearlyCityBudgetByYear[this.props.year][key].lat}
+                                                   lng={this.props.sumOfYearlyCityBudgetByYear[this.props.year][key].lng}
+                                                   zoom={this.state.zoom}
+                              />
+                            })
+                          }
 
                           </GoogleMapReact>
                </div>

@@ -7,7 +7,11 @@ var CSV = require('csv-string');
 class InfoSectionDesktopContainer extends React.Component {
     render() {
         return <div id="info-container-desktop">
-                    <InfoSection year={this.props.year}/>
+                    <InfoSection year={this.props.year}
+                                budgetDataByYearAndCity={this.props.budgetDataByYearAndCity}
+                                sumOfYearlyCityBudgetByYear={this.props.sumOfYearlyCityBudgetByYear}
+                                summedBudgetByYear={this.props.summedBudgetByYear}
+                    />
                </div>
     }
 }

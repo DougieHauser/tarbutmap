@@ -21,10 +21,18 @@ class InfoAndMapSection extends React.Component {
         return <div id="info-and-map-section">
                     <div id="presiding-minister-and-info-container">
                         <PresidingMinisterSection year={this.state.year}/>
-                        <InfoSectionDesktopContainer year={this.state.year}/>
+                        <InfoSectionDesktopContainer year={this.state.year}
+                                                     budgetDataByYearAndCity={this.props.budgetDataByYearAndCity}
+                                                     sumOfYearlyCityBudgetByYear={this.props.sumOfYearlyCityBudgetByYear}
+                                                     summedBudgetByYear={this.props.summedBudgetByYear}
+                        />
                     </div>
 
-                    <MapSection year={this.state.year}/>
+                    <MapSection year={this.state.year}
+                                budgetDataByYearAndCity={this.props.budgetDataByYearAndCity}
+                                sumOfYearlyCityBudgetByYear={this.props.sumOfYearlyCityBudgetByYear}
+                                summedBudgetByYear={this.props.summedBudgetByYear}
+                    />
                </div>
     }
 }

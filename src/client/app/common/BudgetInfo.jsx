@@ -78,48 +78,58 @@ function processCityAndBudgetData() {
 
 function _produceFinalResults() {
     rawBudgetData.forEach((budgetElement) => {
-        // Don't process header row
-        let yearInBudgetElement = budgetElement[csvHeaders['שנה']];
-        if(yearInBudgetElement != "שנה") {
-            // Check if year key exists
-            if(!(yearInBudgetElement in budgetDataByYearAndCity)) {
-                budgetDataByYearAndCity[yearInBudgetElement] = {} ;
-                sumOfYearlyCityBudgetByYear[yearInBudgetElement] = {};
-                summedBudgetByYear[yearInBudgetElement] = {'approved': 0, 'allocated': 0};
+        try{
+            // Don't process header row
+            let yearInBudgetElement = budgetElement[csvHeaders['שנה']];
+            if(yearInBudgetElement != "שנה") {
+                // Check if year key exists
+                if(!(yearInBudgetElement in budgetDataByYearAndCity)) {
+                    budgetDataByYearAndCity[yearInBudgetElement] = {} ;
+                    sumOfYearlyCityBudgetByYear[yearInBudgetElement] = {};
+                    summedBudgetByYear[yearInBudgetElement] = {'approved': 0, 'allocated': 0};
+                }
+
+                let elementSumApproved = parseInt(budgetElement[csvHeaders["סכום שאושר"]].replace('₪','',).replace(',',''));
+                let elementSumAllocated = parseInt(budgetElement[csvHeaders["סכום שהועבר"]].replace('₪','',).replace(',',''));
+                let elementCity = budgetElement[csvHeaders["עיר"]];
+
+                if(isNaN(parseInt(budgetElement[csvHeaders["סכום שאושר"]].replace('₪','',).replace(',',''))) || isNaN(parseInt(budgetElement[csvHeaders["סכום שהועבר"]].replace('₪','',).replace(',','')))) {
+                    console.log("whoops...")
+                    console.log(budgetElement);
+                }
+
+                // Initialize city key, if needed
+                if(!(elementCity in budgetDataByYearAndCity[yearInBudgetElement])) {
+                    budgetDataByYearAndCity[yearInBudgetElement][elementCity] = [];
+                    sumOfYearlyCityBudgetByYear[yearInBudgetElement][elementCity] = {
+                                                                                        'lat': elementCity == 'לא ידוע' ? '0' : rawCityData[elementCity].latitude,
+                                                                                        'lng': elementCity == 'לא ידוע' ? '0' : rawCityData[elementCity].longitude,
+                                                                                        'approved': 0,
+                                                                                        'allocated': 0
+                                                                                    };
+                }
+
+                // TODO: INCORPORATE CITY COORDIANTES, CONSIDER "UNKWOWN" CITY VALUE
+                let elementForApprovedBudgetForYearAndCity = {
+                    "סעיף תקציבי": budgetElement[csvHeaders["סעיף תקציבי"]],
+                    "כותרת סעיף": budgetElement[csvHeaders["כותרת סעיף"]],
+                    "גוף נתמך": budgetElement[csvHeaders["גוף נתמך"]],
+                    "מספר גוף": budgetElement[csvHeaders["מספר גוף"]],
+                    "סוג גוף": budgetElement[csvHeaders["סוג גוף"]],
+                    "סכום שאושר": elementSumApproved,
+                    "סכום שהועבר": elementSumAllocated,
+                    "כתובת": budgetElement[csvHeaders["כתובת"]]
+                }
+
+                budgetDataByYearAndCity[yearInBudgetElement][elementCity].push(elementForApprovedBudgetForYearAndCity);
+                sumOfYearlyCityBudgetByYear[yearInBudgetElement][elementCity]['approved'] += elementSumApproved;
+                sumOfYearlyCityBudgetByYear[yearInBudgetElement][elementCity]['allocated'] += elementSumAllocated;
+                summedBudgetByYear[yearInBudgetElement]['approved'] += elementSumApproved;
+                summedBudgetByYear[yearInBudgetElement]['allocated'] += elementSumAllocated;
             }
-
-            let elementSumApproved = parseInt(budgetElement[csvHeaders["סכום שאושר"]].replace('₪','',).replace(',',''));
-            let elementSumAllocated = parseInt(budgetElement[csvHeaders["סכום שהועבר"]].replace('₪','',).replace(',',''));
-            let elementCity = budgetElement[csvHeaders["עיר"]];
-
-            if(isNaN(parseInt(budgetElement[csvHeaders["סכום שאושר"]].replace('₪','',).replace(',',''))) || isNaN(parseInt(budgetElement[csvHeaders["סכום שהועבר"]].replace('₪','',).replace(',','')))) {
-                console.log("whoops...")
-                console.log(budgetElement);
-            }  // BLA
-
-            // Initialize city key, if needed
-            if(!(elementCity in budgetDataByYearAndCity[yearInBudgetElement])) {
-                budgetDataByYearAndCity[yearInBudgetElement][elementCity] = [];
-                sumOfYearlyCityBudgetByYear[yearInBudgetElement][elementCity] = {'approved': 0, 'allocated': 0};
-            }
-
-            // TODO: INCORPORATE CITY COORDIANTES, CONSIDER "UNKWOWN" CITY VALUE
-            let elementForApprovedBudgetForYearAndCity = {
-                "סעיף תקציבי": budgetElement[csvHeaders["סעיף תקציבי"]],
-                "כותרת סעיף": budgetElement[csvHeaders["כותרת סעיף"]],
-                "גוף נתמך": budgetElement[csvHeaders["גוף נתמך"]],
-                "מספר גוף": budgetElement[csvHeaders["מספר גוף"]],
-                "סוג גוף": budgetElement[csvHeaders["סוג גוף"]],
-                "סכום שאושר": elementSumApproved,
-                "סכום שהועבר": elementSumAllocated,
-                "כתובת": budgetElement[csvHeaders["כתובת"]]
-            }
-
-            budgetDataByYearAndCity[yearInBudgetElement][elementCity].push(elementForApprovedBudgetForYearAndCity);
-            sumOfYearlyCityBudgetByYear[yearInBudgetElement][elementCity]['approved'] += elementSumApproved;
-            sumOfYearlyCityBudgetByYear[yearInBudgetElement][elementCity]['allocated'] += elementSumAllocated;
-            summedBudgetByYear[yearInBudgetElement]['approved'] += elementSumApproved;
-            summedBudgetByYear[yearInBudgetElement]['allocated'] += elementSumAllocated;
+        } catch(e) {
+            console.log(e);
+            console.log("Error while reading budget data");
         }
     });
 
