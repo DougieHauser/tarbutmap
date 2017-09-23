@@ -25,6 +25,9 @@ class InfoAndMapSection extends React.Component {
                                                      budgetDataByYearAndCity={this.props.budgetDataByYearAndCity}
                                                      sumOfYearlyCityBudgetByYear={this.props.sumOfYearlyCityBudgetByYear}
                                                      summedBudgetByYear={this.props.summedBudgetByYear}
+
+                                                     funcChangeBudgetType={this.props.funcChangeBudgetType}
+                                                     budgetTypeToShow={this.props.budgetTypeToShow}
                         />
                     </div>
 
@@ -32,6 +35,8 @@ class InfoAndMapSection extends React.Component {
                                 budgetDataByYearAndCity={this.props.budgetDataByYearAndCity}
                                 sumOfYearlyCityBudgetByYear={this.props.sumOfYearlyCityBudgetByYear}
                                 summedBudgetByYear={this.props.summedBudgetByYear}
+
+                                budgetTypeToShow={this.props.budgetTypeToShow}
                     />
                </div>
     }

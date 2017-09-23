@@ -4,13 +4,6 @@ import InfoSectionDetailView from './InfoSectionDetailView.jsx';
 
 
 class InfoSection extends React.Component {
-    constructor(props) {
-            super(props);
-            this.state = {
-                budgetTypeToShow: Consts.ALLOCATED
-            };
-    }
-
     budgetTabClicked(btn_id, that, event, proxy) {
         let allocated_id = 'btn_' + Consts.ALLOCATED;
         let allocated_btn = document.getElementById(allocated_id);
@@ -20,7 +13,7 @@ class InfoSection extends React.Component {
         let approved_btn = document.getElementById(approved_id);
         approved_btn.className = approved_btn.className.replace(" active", "");
 
-        that.setState({budgetTypeToShow: btn_id});
+        that.props.funcChangeBudgetType(btn_id);
 
         if(btn_id == Consts.ALLOCATED) {
             allocated_btn.className = (allocated_btn.className += " active");
@@ -40,7 +33,7 @@ class InfoSection extends React.Component {
                    { Object.keys(this.props.budgetDataByYearAndCity).length == 0 ?
                             <div className="heb_in_middle" style={{fontSize: "2rem", padding: "5rem"}}>טוען נתונים...</div> :
                                 <InfoSectionDetailView year={this.props.year}
-                                                        budgetTypeToShow={this.state.budgetTypeToShow}
+                                                        budgetTypeToShow={this.props.budgetTypeToShow}
                                                         budgetDataByYearAndCity={this.props.budgetDataByYearAndCity}
                                                         sumOfYearlyCityBudgetByYear={this.props.sumOfYearlyCityBudgetByYear}
                                                         summedBudgetByYear={this.props.summedBudgetByYear}

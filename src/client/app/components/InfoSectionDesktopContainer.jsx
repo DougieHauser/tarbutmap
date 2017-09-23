@@ -11,6 +11,9 @@ class InfoSectionDesktopContainer extends React.Component {
                                 budgetDataByYearAndCity={this.props.budgetDataByYearAndCity}
                                 sumOfYearlyCityBudgetByYear={this.props.sumOfYearlyCityBudgetByYear}
                                 summedBudgetByYear={this.props.summedBudgetByYear}
+
+                                funcChangeBudgetType={this.props.funcChangeBudgetType}
+                                budgetTypeToShow={this.props.budgetTypeToShow}
                     />
                </div>
     }

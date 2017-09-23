@@ -312,7 +312,6 @@ input[type=range]:focus::-ms-fill-upper {
 }
 
 .budget-map-entry {
-    background-color: red;
     opacity: 0.75;
     border-radius: 5000px;
     height: 100px;

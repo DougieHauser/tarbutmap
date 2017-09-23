@@ -3,6 +3,7 @@ import TopHeadlineBar from './TopHeadlineBar.jsx'
 import InfoAndMapSection from './InfoAndMapSection.jsx'
 
 import BudgetInfo from '../common/BudgetInfo.jsx';
+import Consts from '../common/Consts.jsx';
 
 class MainPage extends React.Component {
   constructor(props) {
@@ -13,6 +14,7 @@ class MainPage extends React.Component {
         sumOfYearlyCityBudgetByYear: {},
         summedBudgetByYear: {},
         tarbutInfoInitialized: false,
+        budgetTypeToShow: Consts.ALLOCATED
     };
   }
 
@@ -32,6 +34,10 @@ class MainPage extends React.Component {
       }
   }
 
+  changeBudgetType(typeToShow) {
+    this.setState({budgetTypeToShow: typeToShow});
+  }
+
   updateYear(value) {
     this.setState({year: value});
   }
@@ -44,6 +50,9 @@ class MainPage extends React.Component {
                                   budgetDataByYearAndCity={this.state.budgetDataByYearAndCity}
                                   sumOfYearlyCityBudgetByYear={this.state.sumOfYearlyCityBudgetByYear}
                                   summedBudgetByYear={this.state.summedBudgetByYear}
+
+                                  funcChangeBudgetType={this.changeBudgetType.bind(this)}
+                                  budgetTypeToShow={this.state.budgetTypeToShow}
                 />
             </div>;
   }

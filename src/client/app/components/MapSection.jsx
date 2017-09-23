@@ -11,17 +11,36 @@ class MapSection extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            year: this.props.year,
             zoom: defaultProps.zoom
         }
     }
 
     onChange(mapObj, b, c) {
-        this.setState({zoom: mapObj.zoom});
+        {var hasChanged = this.state.zoom != mapObj.zoom}
+        if(hasChanged) {
+            this.setState({zoom: mapObj.zoom});
+        }
     }
 
-    calculateMaxBudgetEntry() {
+    calculateMaxBudgetEntryAmount(sumOfYearlyCityBudgetByYearHasData) {
+        var largestAmountSoFar = 0;
+        if(sumOfYearlyCityBudgetByYearHasData) {
+            Object.keys(this.props.sumOfYearlyCityBudgetByYear[this.props.year]).forEach((p) => {
+                let currAmount = this.props.sumOfYearlyCityBudgetByYear[this.props.year][p][this.props.budgetTypeToShow];
+                if (currAmount > largestAmountSoFar) {
+                    largestAmountSoFar = currAmount;
+                }
+            });
+        }
 
+        return largestAmountSoFar;
+    }
+
+    turnCityNameToNumber(cityName) {
+        if(cityName.length < 6) {
+            return cityName.substring(1,2).charCodeAt();
+        }
+        return cityName.substring(5,6).charCodeAt();
     }
 
     render () {
@@ -29,7 +48,7 @@ class MapSection extends React.Component {
 
         // GOOGLE_MAPS_KEY should be an ENV_VAR!
         var API_KEY = process.env.GOOGLE_MAPS_KEY ? {key: process.env.GOOGLE_MAPS_KEY} : {}
-        var maxBudgetEntry = this.calculateMaxBudgetEntry.bind(this);
+        var maxBudgetEntry = this.calculateMaxBudgetEntryAmount(sumOfYearlyCityBudgetByYearHasData);
 
         var keysForMap = [];
         for(var p in this.props.sumOfYearlyCityBudgetByYear[this.props.year]) {
@@ -50,6 +69,8 @@ class MapSection extends React.Component {
                                                    lat={this.props.sumOfYearlyCityBudgetByYear[this.props.year][key].lat}
                                                    lng={this.props.sumOfYearlyCityBudgetByYear[this.props.year][key].lng}
                                                    zoom={this.state.zoom}
+                                                   relativeBudget={this.props.sumOfYearlyCityBudgetByYear[this.props.year][key][this.props.budgetTypeToShow] / maxBudgetEntry}
+                                                   semiRandNumber={this.turnCityNameToNumber(key)}
                               />
                             })
                           }
